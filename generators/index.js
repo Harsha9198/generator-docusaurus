@@ -5,10 +5,9 @@ module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
 
-    this.argument("projectName", {
-      type: String,
-      required: false,
-      description: "Name of the project"
+    this.option("projectName", {
+      description: "Path to JSON file containing project name",
+      type: String
     });
 
     this.option("generateDocusaurus", {
@@ -35,12 +34,12 @@ module.exports = class extends Generator {
       this._updateDocusaurusConfig(options);
     }
 
-    this._generateOtherFiles(options, copyOpts); // Call your other file generation logic here
+    this._generateOtherFiles(options, copyOpts); 
   }
 
   _generateDocusaurus(options, copyOpts) {
     this.fs.copyTpl(
-      this.templatePath(`docusaurus`), // Update this line
+      this.templatePath(`docusaurus`), 
       this.destinationPath(`docusaurus-${options.projectName}`),
       options,
       copyOpts
@@ -81,7 +80,9 @@ module.exports = class extends Generator {
       "src/theme/BlogListPage/index.js",
       "src/theme/BlogListPage/styles.module.css",
       "docusaurus.config.js",
-      "sidebars.js"
+      "sidebars.js",
+      "package.json",
+      "README.md"
     ];
 
     filesToGenerate.forEach(file => {

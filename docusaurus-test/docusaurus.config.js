@@ -59,7 +59,7 @@ module.exports = {
     navbar: {
       title: 'company title',
       logo: {
-        alt: 'TIC@CoMakeIT Logo',
+        alt: 'company Logo',
         src: 'img/logo.png',
       },   
       items: [

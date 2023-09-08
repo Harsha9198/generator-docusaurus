@@ -1,13 +1,5 @@
-const fs = require("fs");
-const path = require("path");
-
-const configFile = fs.readFileSync(
-  path.resolve(__dirname, "options.json"),
-  "utf-8"
-);
-const config = JSON.parse(configFile);
 module.exports = {
-  title: config.projectName, // Use projectName from the JSON file
+  title: 'add your site name',
   tagline: 'add yout tagline',
   url: 'https://example.com',
   baseUrl: '/',
@@ -67,7 +59,7 @@ module.exports = {
     navbar: {
       title: 'company title',
       logo: {
-        alt: 'TIC@CoMakeIT Logo',
+        alt: 'company Logo',
         src: 'img/logo.png',
       },   
       items: [
