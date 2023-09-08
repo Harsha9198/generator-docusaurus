@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'add your site name',
-  tagline: 'add yout tagline',
+  title: '<%= projectName %>',
+  tagline: 'add your tagline',
   url: 'https://example.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -32,16 +32,14 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // editUrl: 'https://github.com/coMakeIT-TIC/coMakeIT-TIC.github.io/edit/main/',
         },
         blog: {
           blogTitle: 'Blog',
           blogDescription:
-            'The blog is where your team shares your thoughts and ideas about everything from your products to industry news and insights.',
+            'The blog is where your team shares their thoughts and ideas about everything from your products to industry news and insights.',
           showReadingTime: true,
           feedOptions: {
             type: 'all',
-           // copyright,
           },
 
           blogSidebarTitle: 'Recent posts',
@@ -57,19 +55,13 @@ module.exports = {
 
   themeConfig: {
     navbar: {
-      title: 'company title',
+      title: '<%= projectName %>',
       logo: {
         alt: 'company Logo',
         src: 'img/logo.png',
       },   
       items: [
-        // {
-        //   to: 'docs/index',
-        //   activeBasePath: 'docs/index',
-        //   label: 'Introduction',
-        //   position: 'left',
-        // },
-        {
+       {
           type: 'doc',
           docId: 'Documentation/concept',
           position: 'left',
@@ -77,8 +69,7 @@ module.exports = {
         },
         { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/coMakeIT-TIC/coMakeIT-TIC.github.io',
-          //label: 'GitHub',
+          href: 'https://github.com',
           position: 'right',
           className: 'header-github-link',
         },

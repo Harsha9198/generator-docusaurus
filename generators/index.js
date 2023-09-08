@@ -1,3 +1,4 @@
+const fs = require("fs");
 const path = require("path");
 const Generator = require("yeoman-generator");
 
@@ -5,9 +6,10 @@ module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
 
-    this.option("projectName", {
-      description: "Path to JSON file containing project name",
-      type: String
+    this.argument("projectName", {
+      type: String,
+      required: false,
+      description: "Name of the project"
     });
 
     this.option("generateDocusaurus", {
@@ -31,10 +33,9 @@ module.exports = class extends Generator {
 
     if (this.options.generateDocusaurus) {
       this._generateDocusaurus(options, copyOpts);
-      this._updateDocusaurusConfig(options);
     }
 
-    this._generateOtherFiles(options, copyOpts); 
+    this._generateOtherFiles(options, copyOpts);
   }
 
   _generateDocusaurus(options, copyOpts) {
@@ -44,46 +45,58 @@ module.exports = class extends Generator {
       options,
       copyOpts
     );
-  }
   
-
-  _updateDocusaurusConfig(options) {
-    const configPath = this.destinationPath(
+    // Read the template docusaurus.config.js file
+    const templateConfigPath = this.templatePath("docusaurus/docusaurus.config.js");
+    const templateConfigContent = this.fs.read(templateConfigPath);
+  
+    // Perform string replacement for the project name
+    const updatedConfigContent = templateConfigContent.replace(
+      /<%= projectName %>/g,
+      options.projectName
+    );
+  
+    // Write the updated config to the generated directory
+    const generatedConfigPath = this.destinationPath(
       `docusaurus-${options.projectName}/docusaurus.config.js`
     );
-
-    const configContent = this.fs.read(configPath);
-    const updatedConfigContent = configContent.replace(
-      /title:.*$/m,
-      `title: '${options.projectName}',`
-    );
-
-    this.fs.write(configPath, updatedConfigContent);
+    this.fs.write(generatedConfigPath, updatedConfigContent);
   }
-
+  
+  
   _generateOtherFiles(options, copyOpts) {
     // Generate other files logic
     const filesToGenerate = [
-      "docs/intro.md",
-      "docs/Documentation/concept.md",
-      // "blog/2019-05-28-five-blog-post",
-      "blog/2021-08-01-mdx-blog-post.mdx",
-      "src/components/HomepageFeatures/index.js",
-      "src/components/HomepageFeatures/styles.module.css",
-      "src/css/custom.css",
-      "src/pages/index.js",
-      "src/pages/index.module.css",
-      "src/theme/BlogListPage/Author/index.js",
-      "src/theme/BlogListPage/Author/styles.module.css",
-      "src/theme/BlogListPage/ListItem/index.js",
-      "src/theme/BlogListPage/ListItem/styles.module.css",
-      "src/theme/BlogListPage/index.js",
-      "src/theme/BlogListPage/styles.module.css",
-      "docusaurus.config.js",
-      "sidebars.js",
-      "package.json",
-      "README.md"
-    ];
+        "docs/intro.md",
+        "docs/Documentation/concept.md",
+        "docs/Documentation/maintopic.md",
+        "docs/Documentation/subfolder/subfile.md",
+        //"blog/2019-05-28-five-blog-post.md",
+        "blog/2021-08-01-mdx-blog-post.mdx",
+        "blog/2023-08-29-three-blog-post.md",
+        "blog/2023-08-29-four-blog-post.md",
+        "blog/2023-08-29-six-blog-post.md",
+        "blog/2023-08-29-seven-blog-post.md",
+        "blog/2023-08-29-eight-blog-post.md",
+        "blog/authors.yml",
+        "src/components/HomepageFeatures/index.js",
+        "src/components/HomepageFeatures/styles.module.css",
+        "src/css/custom.css",
+        "src/pages/index.js",
+        "src/pages/index.module.css",
+        "src/theme/BlogListPage/Author/index.js",
+        "src/theme/BlogListPage/Author/styles.module.css",
+        "src/theme/BlogListPage/ListItem/index.js",
+        "src/theme/BlogListPage/ListItem/styles.module.css",
+        "src/theme/BlogListPage/index.js",
+        "src/theme/BlogListPage/styles.module.css",
+        "static/img/image.jpeg",
+        "static/img/logo.png",
+        "docusaurus.config.js",
+        "sidebars.js",
+        "package.json",
+        "README.md"
+      ];
 
     filesToGenerate.forEach(file => {
       this.fs.copyTpl(

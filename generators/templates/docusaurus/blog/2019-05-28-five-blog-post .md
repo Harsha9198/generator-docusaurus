@@ -3,9 +3,9 @@ slug: long-blog-post
 title: sample blog heading
 author: sample author
 author_title: Co-founder & CEO
-author_url: https://github.com #author social media url
-author_image_url: https://avatars.githubusercontent.com/u/110808581?v=4
-image: img/3.jpeg
+author_url: https://avatars.githubusercontent.com/u/1714870?s=200&v=4 #author social media url
+author_image_url: https://avatars.githubusercontent.com/u/1714870?s=200&v=4 #add author image url or simply add image from img folder
+image: img/image.jpeg
 ---
 
 This is the summary of a very long blog post,
